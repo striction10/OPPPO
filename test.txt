@@ -1,0 +1,13 @@
+ADD {"name": "Show must go on", "time": "3.43", "musician": "Queen"}
+ADD {"name": "Симфония №5", "time": "32.0", "composer": "Бетховин"}
+ADD {"name": "Yesterday", "time": "2.05", "musician": "The Beatles"}
+ADD {"name": "Времена года", "time": "42.5", "composer": "Вивальди"}
+PRINT
+REM composer == Вивальди
+REM time == 2.05
+
+ADD {"name": "Осень", "time": "42.5", "composer": "Вивальди"}
+
+REM name == Симфония №5
+
+PRINT

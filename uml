@@ -1,0 +1,31 @@
+@startuml
+class Parameters {
+string name
+float time
+init(name: str, time: float)
+}
+
+class Song {
+string musican
+init(name: str, time: float, musican: str)
+str()
+}
+
+class Symphony {
+string composer
+init(name: str, time: float, composer: str)
+str()
+}
+
+class Container {
+list musics
+init()
+add(json_data: str): void
+rem(condition: str): void
+print(): void
+}
+
+Parameters <|-- Song
+Parameters <|-- Symphony
+Container *-- Parameters : содержит
+@enduml

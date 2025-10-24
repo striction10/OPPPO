@@ -1,9 +1,12 @@
-from src.models.container import Container
+"""Start"""
+from models.container import Container
 
-def read_file(name_file):
+
+def read_file(name_file: str) -> None:
+    """Read the name_file file."""
     container = Container()
     try:
-        with open(name_file, "r") as file:
+        with open(name_file, "r", encoding="utf-8") as file:
             for line in file:
                 if not line or line.startswith("#"):
                     continue
@@ -18,9 +21,12 @@ def read_file(name_file):
     except FileNotFoundError:
         print("Файл не найден!")
 
-def main():
+
+def main() -> None:
+    """Main function."""
     name_file = input("Введите путь к файлу: ")
     read_file(name_file)
+
 
 if __name__ == '__main__':
     main()

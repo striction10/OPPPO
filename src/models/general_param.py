@@ -1,4 +1,7 @@
+"""Module for general parameters."""
+import dataclasses
+@dataclasses.dataclass
 class Parameters:
-    def __init__(self, name: str, time: float):
-        self.name = name
-        self.time = time
+    """Class for parameters"""
+    name: str
+    time: float

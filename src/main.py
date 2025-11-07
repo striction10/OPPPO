@@ -1,13 +1,16 @@
-"""Start"""
-from models.container import Container
+"""Start."""
+from src.models.container import Container
 
 class Processor:
-    """Processor class"""
+    """Processor class."""
 
     def __init__(self):
-        """Constructor class"""
+        """Constructor class."""
         self.container = Container()
 
+    def get_container(self) -> Container:
+        """Get the container instance."""
+        return self.container
 
     def read_file(self, name_file: str) -> None:
         """Read the name_file file."""
@@ -27,13 +30,11 @@ class Processor:
         except FileNotFoundError:
             print("Файл не найден!")
 
-
 def main() -> None:
     """Main function."""
     name_file = input("Введите путь к файлу: ")
     processor = Processor()
     processor.read_file(name_file)
-
 
 if __name__ == '__main__':
     main()

@@ -1,45 +1,44 @@
 """Container module."""
 import json
 from typing import List, Union
-from src.models.song import Song
-from src.models.symphony import Symphony
+from .song import Song
+from .symphony import Symphony
 
 
 class MusicFactory:
     """Factory for creating music objects."""
-
     @staticmethod
     def create_music(data: dict) -> Union[Song, Symphony]:
         """Create music object from data."""
         name = data.get("name", "").strip()
         if not name:
             raise ValueError("Имя не может быть пустым!")
-
         try:
             time = float(data.get("time", 0))
-        except (TypeError, ValueError):
-            raise ValueError("Время принимает только числовое значение!")
-
+        except (TypeError, ValueError) as exc:
+            raise ValueError("Время принимает только числовое значение!") from exc
         if time <= 0:
             raise ValueError("Время должно иметь положительное значение!")
-
         if "composer" in data:
             composer = data.get("composer", "").strip()
             if not composer:
                 raise ValueError("Композитор не может быть пустым!")
             return Symphony(name, time, composer)
-        elif "musician" in data:
+        if "musician" in data:
             musician = data.get("musician", "").strip()
             if not musician:
                 raise ValueError("Исполнитель не может быть пустым!")
             return Song(name, time, musician)
-        else:
-            raise ValueError("Неизвестное поле!")
+        raise ValueError("Неизвестное поле!")
+
+    @staticmethod
+    def get_supported_types() -> list:
+        """Get list of supported music types."""
+        return ["song", "symphony"]
 
 
 class ConditionParser:
     """Parser for removal conditions."""
-
     @staticmethod
     def parse(condition: str) -> tuple:
         """Parse condition string."""
@@ -55,10 +54,9 @@ class ConditionParser:
         """Create filter function based on condition."""
         if operator == "==":
             return ConditionParser._create_equals_filter(field, value)
-        elif operator == ">":
+        if operator == ">":
             return ConditionParser._create_greater_than_filter(field, value)
-        else:
-            raise ValueError(f"Неизвестный оператор: {operator}")
+        raise ValueError(f"Неизвестный оператор: {operator}")
 
     @staticmethod
     def _create_equals_filter(field: str, value: str):
@@ -79,7 +77,7 @@ class ConditionParser:
     def _create_greater_than_filter(field: str, value: str):
         """Create greater than filter."""
         if field != "time":
-            raise ValueError(f"Оператор > поддерживается только с временем!")
+            raise ValueError("Оператор > поддерживается только с временем!")
 
         time_value = ConditionParser._parse_time_value(value)
         return lambda music: music.time > time_value
@@ -89,13 +87,12 @@ class ConditionParser:
         """Parse time value from string."""
         try:
             return float(value)
-        except ValueError:
-            raise ValueError("Время должно быть числом!")
+        except ValueError as exc:
+            raise ValueError("Время должно быть числом!") from exc
 
 
 class Container:
     """Container for music items."""
-
     def __init__(self):
         self.musics: List[Union[Song, Symphony]] = []
         self.factory = MusicFactory()

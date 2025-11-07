@@ -1,14 +1,12 @@
 """Module for Symphony."""
-from src.models.general_param import Parameters
+from .general_param import Parameters
 
 
 class Symphony(Parameters):
     """Constructor for Symphony class."""
-
     def __init__(self, name: str, time: float, composer: str):
         super().__init__(name, time)
         self.composer = composer
-
 
     def __str__(self):
         """Print Symphony info."""

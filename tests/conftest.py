@@ -6,6 +6,7 @@ from src.models.symphony import Symphony
 
 @pytest.fixture
 def sample_song_data():
+    """Test configuration and fixtures."""
     return {
         "name": "Test Song",
         "time": 3.5,
@@ -15,6 +16,7 @@ def sample_song_data():
 
 @pytest.fixture
 def sample_symphony_data():
+    """Test configuration and fixtures."""
     return {
         "name": "Test Symphony",
         "time": 25.0,
@@ -24,16 +26,19 @@ def sample_symphony_data():
 
 @pytest.fixture
 def sample_song():
+    """Test configuration and fixtures."""
     return Song("Test Song", 3.5, "Test Artist")
 
 
 @pytest.fixture
 def sample_symphony():
+    """Test configuration and fixtures."""
     return Symphony("Test Symphony", 25.0, "Test Composer")
 
 
 @pytest.fixture
 def container_with_data(sample_song, sample_symphony):
+    """Test configuration and fixtures."""
     from src.models.container import Container
     container = Container()
     container.musics = [sample_song, sample_symphony]
@@ -41,5 +46,6 @@ def container_with_data(sample_song, sample_symphony):
 
 @pytest.fixture
 def empty_container():
+    """Test configuration and fixtures."""
     from src.models.container import Container
     return Container()
